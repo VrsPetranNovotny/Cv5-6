@@ -15,23 +15,17 @@ extern uint16_t value2;
 
 void gpio_init(void)
 {
-	          /* LED */
+
 	          RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
 
-			  //GPIO_InitTypeDef gpioInitStructure;
-	          GPIO_StructInit(&gpioInitStruc);
-			  gpioInitStruc.GPIO_Mode = GPIO_Mode_OUT;
-			  gpioInitStruc.GPIO_OType = GPIO_OType_PP;
-			  gpioInitStruc.GPIO_Pin = GPIO_Pin_5;
-			  gpioInitStruc.GPIO_Speed = GPIO_Speed_400KHz;
-			  GPIO_Init(GPIOA, &gpioInitStruc);
 
-			  /* ADC */
+			  /* adc */
 			  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 			  GPIO_StructInit(&gpioInitStruc);
 			  gpioInitStruc.GPIO_Pin = GPIO_Pin_0 ;
 			  gpioInitStruc.GPIO_Mode = GPIO_Mode_AN;
-			  gpioInitStruc.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+			  //gpioInitStruc.GPIO_PuPd = GPIO_PuPd_NOPULL ;
+			  gpioInitStruc.GPIO_Speed=GPIO_Speed_40MHz;
 			  GPIO_Init(GPIOC, &gpioInitStruc);
 
 			  /* usart */
@@ -47,8 +41,7 @@ void gpio_init(void)
 
 void adc_init()
 {
-    ADC_InitTypeDef ADC_InitStructure;
-	/* Enable GPIO clock */
+    /* Enable GPIO clock */
 
 	/*
 	 * RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
@@ -78,7 +71,7 @@ void adc_init()
 	ADC_Init(ADC1, &ADC_InitStructure);
 
 	/* ADCx regular channel8 configuration */
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_10, 1, ADC_SampleTime_16Cycles);
+	ADC_RegularChannelConfig(ADC1, ADC_Channel_10, 1, ADC_SampleTime_384Cycles);
 
 	ADC_ITConfig(ADC1,ADC_IT_EOC,ENABLE);
 	ADC_ITConfig(ADC1,ADC_IT_OVR,ENABLE);

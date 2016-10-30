@@ -6,10 +6,11 @@
 
 uint16_t value;
 uint16_t value2;
-uint8_t zmena;
+uint8_t zmena = 1;
 
 int main(void)
 {
+
 	gpio_init();
 	adc_init();
 	usart_init();
@@ -18,8 +19,15 @@ int main(void)
 
   while (1)
   {
-	  if(zmena == 0) sprintf(hodnota, "%d mV", (int)value2);
-	  else sprintf(hodnota, "%d", (int)value);
+	  if(zmena == 0)
+	  {
+
+		  sprintf(hodnota, "%d mV", value2);
+	  }
+	  else
+	  {
+		  sprintf(hodnota, "%d", value);
+	  }
 	  Posielanie(hodnota);
 	  delay(400000);
   }
